@@ -30,7 +30,7 @@ FacePairEmoji is a carefully constructed multi-resolution, multi-expression pair
 <td><img src="assets/demo/raf_train_00042_disgust.jpg" width="100"><br><sub>Generated</sub></td>
 </tr>
 <tr>
-<td><b>kdef_AF01</b><br><sub>544×736</sub></td>
+<td><b>kdef_AF01SUS</b><br><sub>544×736</sub></td>
 <td><img src="assets/demo/neutral_kdef_AF01NES.JPG" width="100"><br><sub>Original</sub></td>
 <td><img src="assets/demo/happy_kdef_AF01HAS.JPG" width="100"><br><sub>Original</sub></td>
 <td><img src="assets/demo/sad_kdef_AF01SAS.JPG" width="100"><br><sub>Original</sub></td>
@@ -40,7 +40,7 @@ FacePairEmoji is a carefully constructed multi-resolution, multi-expression pair
 <td><img src="assets/demo/disgust_kdef_AF01DIS.JPG" width="100"><br><sub>Original</sub></td>
 </tr>
 <tr>
-<td><b>oulu_001</b><br><sub>448×336</sub></td>
+<td><b>oulu_P003</b><br><sub>448×336</sub></td>
 <td><img src="assets/demo/neutral_oulu_P003_Anger_000.jpeg" width="100"><br><sub>Original</sub></td>
 <td><img src="assets/demo/happy_oulu_P003_Happiness_013.jpeg" width="100"><br><sub>Original</sub></td>
 <td><img src="assets/demo/sad_oulu_P003_Sadness_014.jpeg" width="100"><br><sub>Original</sub></td>
@@ -59,13 +59,13 @@ FacePairEmoji is a carefully constructed multi-resolution, multi-expression pair
 - [Dataset Highlights](#dataset-highlights)
 - [Source Datasets](#source-datasets)
 - [Processing Pipeline Overview](#processing-pipeline-overview)
-- [Step 1: Source Data Curation](#step-1-source-data-curation)
-- [Step 2: Multi-Resolution Bucket Design](#step-2-multi-resolution-bucket-design)
-- [Step 3: Bucket Allocation](#step-3-bucket-allocation)
-- [Step 4: Super-Resolution with SeedVR2](#step-4-super-resolution-with-seedvr2)
-- [Step 5: Resize to Target Resolution](#step-5-resize-to-target-resolution)
-- [Step 6: RAF Expression Generation via API](#step-6-raf-expression-generation-via-api)
-- [Step 7: API Output Resize](#step-7-api-output-resize)
+    - [Step 1: Source Data Curation](#step-1-source-data-curation)
+    - [Step 2: Multi-Resolution Bucket Design](#step-2-multi-resolution-bucket-design)
+    - [Step 3: Bucket Allocation](#step-3-bucket-allocation)
+    - [Step 4: Super-Resolution with SeedVR2](#step-4-super-resolution-with-seedvr2)
+    - [Step 5: Resize to Target Resolution](#step-5-resize-to-target-resolution)
+    - [Step 6: RAF Expression Generation via API](#step-6-raf-expression-generation-via-api)
+    - [Step 7: API Output Resize](#step-7-api-output-resize)
 - [Dataset Statistics](#dataset-statistics)
 - [Directory Structure](#directory-structure)
 - [Usage](#usage)
