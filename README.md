@@ -33,21 +33,21 @@ FacePairEmoji is a carefully constructed multi-resolution, multi-expression pair
 <td><b>kdef_AF01</b><br><sub>544×736</sub></td>
 <td><img src="assets/demo/neutral_kdef_AF01NES.JPG" width="100"><br><sub>Original</sub></td>
 <td><img src="assets/demo/happy_kdef_AF01HAS.JPG" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/sad_kdef_AF01SAD.JPG" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/angry_kdef_AF01ANG.JPG" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/surprise_kdef_AF01SUR.JPG" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/fear_kdef_AF01FEA.JPG" width="100"><br><sub>Original</sub></td>
+<td><img src="assets/demo/sad_kdef_AF01SAS.JPG" width="100"><br><sub>Original</sub></td>
+<td><img src="assets/demo/angry_kdef_AF01ANS.JPG" width="100"><br><sub>Original</sub></td>
+<td><img src="assets/demo/surprise_kdef_AF01SUS.JPG" width="100"><br><sub>Original</sub></td>
+<td><img src="assets/demo/fear_kdef_AF01AFS.JPG" width="100"><br><sub>Original</sub></td>
 <td><img src="assets/demo/disgust_kdef_AF01DIS.JPG" width="100"><br><sub>Original</sub></td>
 </tr>
 <tr>
 <td><b>oulu_001</b><br><sub>448×336</sub></td>
 <td><img src="assets/demo/neutral_oulu_P003_Anger_000.jpeg" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/happy_oulu_P003_Anger_000.jpeg" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/sad_oulu_P003_Anger_000.jpeg" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/angry_oulu_P003_Anger_000.jpeg" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/surprise_oulu_P003_Anger_000.jpeg" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/fear_oulu_P003_Anger_000.jpeg" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/disgust_oulu_P003_Anger_000.jpeg" width="100"><br><sub>Original</sub></td>
+<td><img src="assets/demo/happy_oulu_P003_Happiness_013.jpeg" width="100"><br><sub>Original</sub></td>
+<td><img src="assets/demo/sad_oulu_P003_Sadness_014.jpeg" width="100"><br><sub>Original</sub></td>
+<td><img src="assets/demo/angry_oulu_P003_Anger_020.jpeg" width="100"><br><sub>Original</sub></td>
+<td><img src="assets/demo/surprise_oulu_P003_Surprise_011.jpeg" width="100"><br><sub>Original</sub></td>
+<td><img src="assets/demo/fear_oulu_P003_Fear_012.jpeg" width="100"><br><sub>Original</sub></td>
+<td><img src="assets/demo/disgust_oulu_P003_Disgust_009.jpeg" width="100"><br><sub>Original</sub></td>
 </tr>
 </table>
 
