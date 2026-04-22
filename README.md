@@ -51,8 +51,6 @@ FacePairEmoji is a carefully constructed multi-resolution, multi-expression pair
 </tr>
 </table>
 
-> 📌 **占位说明**：上方图片路径指向 `assets/demo/`，请替换为实际的示例图片。RAF 行中除 neutral 为真实图片外，其余 6 张均为 API 生成的合成图像。
-
 ---
 
 ## Table of Contents
