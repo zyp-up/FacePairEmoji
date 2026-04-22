@@ -8,29 +8,19 @@ FacePairEmoji is a carefully constructed multi-resolution, multi-expression pair
 
 ## Paired Examples
 
-<table>
-<colgroup>
-<col style="width:10%;">
-<col style="width:12.86%;">
-<col style="width:12.86%;">
-<col style="width:12.86%;">
-<col style="width:12.86%;">
-<col style="width:12.86%;">
-<col style="width:12.86%;">
-<col style="width:12.86%;">
-</colgroup>
+<table style="width:100%; table-layout:fixed;">
 <tr>
-<th>Person</th>
-<th>Neutral</th>
-<th>Happy</th>
-<th>Sad</th>
-<th>Angry</th>
-<th>Surprise</th>
-<th>Fear</th>
-<th>Disgust</th>
+<th style="width:10%;">Person</th>
+<th style="width:12.86%;">Neutral</th>
+<th style="width:12.86%;">Happy</th>
+<th style="width:12.86%;">Sad</th>
+<th style="width:12.86%;">Angry</th>
+<th style="width:12.86%;">Surprise</th>
+<th style="width:12.86%;">Fear</th>
+<th style="width:12.86%;">Disgust</th>
 </tr>
 <tr>
-<td><b>raf_test_2404</b><br><sub>832×1248</sub></td>
+<td style="width:10%; word-wrap:break-word;"><b>raf_test_2404</b><br><sub>832×1248</sub></td>
 <td><img src="assets/demo/neutral_raf_test_2404.jpg" width="120"><br><sub>Original</sub></td>
 <td><img src="assets/demo/happy_raf_test_2404.png" width="120"><br><sub>Generated</sub></td>
 <td><img src="assets/demo/sad_raf_test_2404.png" width="120"><br><sub>Generated</sub></td>
@@ -40,7 +30,7 @@ FacePairEmoji is a carefully constructed multi-resolution, multi-expression pair
 <td><img src="assets/demo/disgust_raf_test_2404.png" width="120"><br><sub>Generated</sub></td>
 </tr>
 <tr>
-<td><b>kdef_AF01SUS</b><br><sub>544×736</sub></td>
+<td style="width:10%; word-wrap:break-word;"><b>kdef_AF01SUS</b><br><sub>544×736</sub></td>
 <td><img src="assets/demo/neutral_kdef_AF01NES.JPG" width="120"><br><sub>Original</sub></td>
 <td><img src="assets/demo/happy_kdef_AF01HAS.JPG" width="120"><br><sub>Original</sub></td>
 <td><img src="assets/demo/sad_kdef_AF01SAS.JPG" width="120"><br><sub>Original</sub></td>
@@ -50,7 +40,7 @@ FacePairEmoji is a carefully constructed multi-resolution, multi-expression pair
 <td><img src="assets/demo/disgust_kdef_AF01DIS.JPG" width="120"><br><sub>Original</sub></td>
 </tr>
 <tr>
-<td><b>oulu_P003</b><br><sub>448×336</sub></td>
+<td style="width:10%; word-wrap:break-word;"><b>oulu_P003</b><br><sub>448×336</sub></td>
 <td><img src="assets/demo/neutral_oulu_P003_Anger_000.jpeg" width="120"><br><sub>Original</sub></td>
 <td><img src="assets/demo/happy_oulu_P003_Happiness_013.jpeg" width="120"><br><sub>Original</sub></td>
 <td><img src="assets/demo/sad_oulu_P003_Sadness_014.jpeg" width="120"><br><sub>Original</sub></td>
