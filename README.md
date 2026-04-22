@@ -361,13 +361,53 @@ We use [**SeedVR2-7B**](https://github.com/ByteDance-Seed/SeedVR) (Wang et al., 
 
 The super-resolution is performed **per bucket** — all images assigned to a given bucket are super-resolved to that bucket's target resolution:
 
-```bash
-torchrun --nproc-per-node=8 inference_seedvr2_7b_img.py \
-    --video_path INPUT_DIR \
-    --output_dir OUTPUT_DIR \
-    --res_h TARGET_H --res_w TARGET_W \
-    --sp_size 1
+```python
+from pathlib import Path
+import subprocess
+
+
+def run_seedvr_for_bucket(seedvr_repo: Path, input_dir: Path, output_dir: Path, target_w: int, target_h: int, nproc: int = 8):
+    """Run SeedVR2 inference for one bucket-expression directory."""
+    cmd = [
+        "torchrun",
+        f"--nproc-per-node={nproc}",
+        "inference_seedvr2_7b_img.py",
+        "--video_path", str(input_dir),
+        "--output_dir", str(output_dir),
+        "--res_h", str(target_h),
+        "--res_w", str(target_w),
+        "--sp_size", "1",
+    ]
+    subprocess.run(cmd, cwd=seedvr_repo, check=True)
+
+
+def upscale_all_buckets(seedvr_repo: Path, input_root: Path, output_root: Path):
+    """Bucket-wise pipeline: parse WxH from folder name, then process each expression folder."""
+    for bucket_dir in sorted(input_root.iterdir()):
+        if not bucket_dir.is_dir() or "x" not in bucket_dir.name:
+            continue
+
+        target_w, target_h = map(int, bucket_dir.name.split("x"))
+
+        for expr_dir in sorted(bucket_dir.iterdir()):
+            if not expr_dir.is_dir():
+                continue
+
+            out_dir = output_root / bucket_dir.name / expr_dir.name
+            out_dir.mkdir(parents=True, exist_ok=True)
+            run_seedvr_for_bucket(seedvr_repo, expr_dir, out_dir, target_w, target_h)
+
+
+# Example entrypoint
+SEEDVR_REPO = Path("/path/to/SeedVR")
+INPUT_ROOT = Path("final_data_v1_bucket")
+OUTPUT_ROOT = Path("final_data_v1_seedvr2")
+upscale_all_buckets(SEEDVR_REPO, INPUT_ROOT, OUTPUT_ROOT)
 ```
+
+For model weights, environment setup, and full inference details, please refer to the official SeedVR repository:
+
+- [SeedVR official repo](https://github.com/ByteDance-Seed/SeedVR)
 
 ---
 
@@ -439,7 +479,7 @@ $$H_{\text{api}} = \text{round}\!\left(\frac{624 \times 4.02}{16}\right) \times 
 **Step 6.3.2: Generate at 2K resolution**
 
 ```python
-response = client.images.edit(
+response = client.images.generate(
     model="doubao-seedream-5-0-260128",
     image=base64_neutral_image,       # super-resolved neutral face
     prompt=expression_prompt,          # e.g., "Make this person look happy"
@@ -550,20 +590,6 @@ FacePairEmoji/
 │   │   ├── fear/
 │   │   └── disgust/
 │   └── ...                            (64 bucket directories)
-│
-├── scripts/
-│   ├── stat_resolution.py             # Resolution distribution analysis
-│   ├── allocate_buckets.py            # Bucket allocation (balanced)
-│   ├── seedvr2_upscale_buckets.py     # SeedVR2 batch super-resolution
-│   ├── inference_seedvr2_7b_img.py    # Modified SeedVR2 inference (image input)
-│   ├── resize_to_buckets.py           # Final Lanczos resize
-│   ├── generate_raf_expressions.py    # API-based expression synthesis
-│   └── verify_buckets.py              # Allocation verification
-│
-├── assets/
-│   └── demo/                          # Example images for README
-│
-└── README.md
 ```
 
 ---
