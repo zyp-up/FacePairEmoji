@@ -1,6 +1,6 @@
 # FacePairEmoji
 
-**A Multi-Resolution Paired Facial Expression Dataset for Flux Fine-Tuning**
+<th style="width:14%;">Person</th>
 
 FacePairEmoji is a carefully constructed multi-resolution, multi-expression paired face dataset designed for fine-tuning [Flux Kontext](https://github.com/black-forest-labs/flux) diffusion models. It provides same-person, different-expression image pairs across 64 resolution buckets (256px–2048px), preserving the base model's multi-resolution generation capabilities during fine-tuning.
 
@@ -10,34 +10,34 @@ FacePairEmoji is a carefully constructed multi-resolution, multi-expression pair
 
 <table>
 <tr>
-<th>Person</th>
-<th>Neutral</th>
-<th>Happy</th>
-<th>Sad</th>
-<th>Angry</th>
-<th>Surprise</th>
-<th>Fear</th>
-<th>Disgust</th>
+<td style="width:14%;"><b>raf_train_00042</b><br><sub>832×1248</sub></td>
+<td><img src="assets/demo/raf_train_00042_neutral.jpg" width="128"><br><sub>Original</sub></td>
+<td><img src="assets/demo/raf_train_00042_happy.jpg" width="128"><br><sub>Generated</sub></td>
+<td><img src="assets/demo/raf_train_00042_sad.jpg" width="128"><br><sub>Generated</sub></td>
+<td><img src="assets/demo/raf_train_00042_angry.jpg" width="128"><br><sub>Generated</sub></td>
+<td><img src="assets/demo/raf_train_00042_surprise.jpg" width="128"><br><sub>Generated</sub></td>
+<td><img src="assets/demo/raf_train_00042_fear.jpg" width="128"><br><sub>Generated</sub></td>
+<td><img src="assets/demo/raf_train_00042_disgust.jpg" width="128"><br><sub>Generated</sub></td>
 </tr>
 <tr>
-<td><b>raf_train_00042</b><br><sub>832×1248</sub></td>
-<td><img src="assets/demo/neutral_raf_test_2404.jpg" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/happy_raf_test_2404.png" width="100"><br><sub>Generated</sub></td>
-<td><img src="assets/demo/sad_raf_test_2404.png" width="100"><br><sub>Generated</sub></td>
-<td><img src="assets/demo/angry_raf_test_2404.png" width="100"><br><sub>Generated</sub></td>
-<td><img src="assets/demo/surprise_raf_test_2404.png" width="100"><br><sub>Generated</sub></td>
-<td><img src="assets/demo/fear_raf_test_2404.png" width="100"><br><sub>Generated</sub></td>
-<td><img src="assets/demo/disgust_raf_test_2404.png" width="100"><br><sub>Generated</sub></td>
+<td style="width:14%;"><b>kdef_AF01SUS</b><br><sub>544×736</sub></td>
+<td><img src="assets/demo/neutral_kdef_AF01NES.JPG" width="128"><br><sub>Original</sub></td>
+<td><img src="assets/demo/happy_kdef_AF01HAS.JPG" width="128"><br><sub>Original</sub></td>
+<td><img src="assets/demo/sad_kdef_AF01SAS.JPG" width="128"><br><sub>Original</sub></td>
+<td><img src="assets/demo/angry_kdef_AF01ANS.JPG" width="128"><br><sub>Original</sub></td>
+<td><img src="assets/demo/surprise_kdef_AF01SUS.JPG" width="128"><br><sub>Original</sub></td>
+<td><img src="assets/demo/fear_kdef_AF01AFS.JPG" width="128"><br><sub>Original</sub></td>
+<td><img src="assets/demo/disgust_kdef_AF01DIS.JPG" width="128"><br><sub>Original</sub></td>
 </tr>
 <tr>
-<td><b>kdef_AF01SUS</b><br><sub>544×736</sub></td>
-<td><img src="assets/demo/neutral_kdef_AF01NES.JPG" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/happy_kdef_AF01HAS.JPG" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/sad_kdef_AF01SAS.JPG" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/angry_kdef_AF01ANS.JPG" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/surprise_kdef_AF01SUS.JPG" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/fear_kdef_AF01AFS.JPG" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/disgust_kdef_AF01DIS.JPG" width="100"><br><sub>Original</sub></td>
+<td style="width:14%;"><b>oulu_P003</b><br><sub>448×336</sub></td>
+<td><img src="assets/demo/neutral_oulu_P003_Anger_000.jpeg" width="128"><br><sub>Original</sub></td>
+<td><img src="assets/demo/happy_oulu_P003_Happiness_013.jpeg" width="128"><br><sub>Original</sub></td>
+<td><img src="assets/demo/sad_oulu_P003_Sadness_014.jpeg" width="128"><br><sub>Original</sub></td>
+<td><img src="assets/demo/angry_oulu_P003_Anger_020.jpeg" width="128"><br><sub>Original</sub></td>
+<td><img src="assets/demo/surprise_oulu_P003_Surprise_011.jpeg" width="128"><br><sub>Original</sub></td>
+<td><img src="assets/demo/fear_oulu_P003_Fear_012.jpeg" width="128"><br><sub>Original</sub></td>
+<td><img src="assets/demo/disgust_oulu_P003_Disgust_009.jpeg" width="128"><br><sub>Original</sub></td>
 </tr>
 <tr>
 <td><b>oulu_P003</b><br><sub>448×336</sub></td>
