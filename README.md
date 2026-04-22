@@ -21,13 +21,13 @@ FacePairEmoji is a carefully constructed multi-resolution, multi-expression pair
 </tr>
 <tr>
 <td><b>raf_train_00042</b><br><sub>832×1248</sub></td>
-<td><img src="assets/demo/raf_train_00042_neutral.jpg" width="100"><br><sub>Original</sub></td>
-<td><img src="assets/demo/raf_train_00042_happy.jpg" width="100"><br><sub>Generated</sub></td>
-<td><img src="assets/demo/raf_train_00042_sad.jpg" width="100"><br><sub>Generated</sub></td>
-<td><img src="assets/demo/raf_train_00042_angry.jpg" width="100"><br><sub>Generated</sub></td>
-<td><img src="assets/demo/raf_train_00042_surprise.jpg" width="100"><br><sub>Generated</sub></td>
-<td><img src="assets/demo/raf_train_00042_fear.jpg" width="100"><br><sub>Generated</sub></td>
-<td><img src="assets/demo/raf_train_00042_disgust.jpg" width="100"><br><sub>Generated</sub></td>
+<td><img src="assets/demo/neutral_raf_test_2404.jpg" width="100"><br><sub>Original</sub></td>
+<td><img src="assets/demo/happy_raf_test_2404.png" width="100"><br><sub>Generated</sub></td>
+<td><img src="assets/demo/sad_raf_test_2404.png" width="100"><br><sub>Generated</sub></td>
+<td><img src="assets/demo/angry_raf_test_2404.png" width="100"><br><sub>Generated</sub></td>
+<td><img src="assets/demo/surprise_raf_test_2404.png" width="100"><br><sub>Generated</sub></td>
+<td><img src="assets/demo/fear_raf_test_2404.png" width="100"><br><sub>Generated</sub></td>
+<td><img src="assets/demo/disgust_raf_test_2404.png" width="100"><br><sub>Generated</sub></td>
 </tr>
 <tr>
 <td><b>kdef_AF01SUS</b><br><sub>544×736</sub></td>
