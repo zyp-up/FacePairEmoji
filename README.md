@@ -142,25 +142,64 @@ For [**KDEF**](https://www.kdef.se/), images were originally captured under mult
 
 The curated data is organized as:
 
-```
-final_data_v1/
+<table>
+<tr>
+<th>Directory Structure</th>
+<th>Example Images (3×3)</th>
+</tr>
+<tr>
+<td valign="top">
+
+```text
+pair_data/
 ├── neutral/
-│   ├── multi_pie_001_neutral.jpg
-│   ├── kdef_AF01.jpg
-│   └── oulu_001_neutral.jpg
+│   └── neutral_kdef_AM32NES.JPG
 ├── happy/
+│   ├── happy_kdef_AM32HAS.JPG
+│   └── happy_oulu_P026_Happiness_035.jpeg
 ├── sad/
+│   ├── sad_kdef_AM32SAS.JPG
+│   └── sad_oulu_P026_Sadness_022.jpeg
 ├── angry/
+│   └── angry_oulu_P026_Anger_018.jpeg
 ├── surprise/
+│   └── surprise_oulu_P027_Surprise_032.jpeg
 ├── fear/
+│   └── fear_oulu_P027_Fear_051.jpeg
 └── disgust/
+    └── disgust_oulu_P027_Disgust_022.jpeg
 ```
+
+</td>
+<td valign="top">
+
+<table>
+<tr>
+<td><img src="assets/dir_demo/neutral_kdef_AM32NES.JPG" width="140"></td>
+<td><img src="assets/dir_demo/happy_kdef_AM32HAS.JPG" width="140"></td>
+<td><img src="assets/dir_demo/sad_kdef_AM32SAS.JPG" width="140"></td>
+</tr>
+<tr>
+<td><img src="assets/dir_demo/happy_oulu_P026_Happiness_035.jpeg" width="140"></td>
+<td><img src="assets/dir_demo/sad_oulu_P026_Sadness_022.jpeg" width="140"></td>
+<td><img src="assets/dir_demo/angry_oulu_P026_Anger_018.jpeg" width="140"></td>
+</tr>
+<tr>
+<td><img src="assets/dir_demo/surprise_oulu_P027_Surprise_032.jpeg" width="140"></td>
+<td><img src="assets/dir_demo/fear_oulu_P027_Fear_051.jpeg" width="140"></td>
+<td><img src="assets/dir_demo/disgust_oulu_P027_Disgust_022.jpeg" width="140"></td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
 
 ### 1.2 RAF-DB: Neutral Image Extraction
 
 [RAF-DB](http://www.whdeng.cn/raf/model1.html) provides single images with discrete expression labels (1=surprise, 2=fear, 3=disgust, 4=happy, 5=sad, 6=angry, 7=neutral). Since RAF-DB is an **unpaired** dataset — each image shows a different person in a single expression — it cannot directly provide expression pairs.
 
-Our strategy: **extract all neutral-labeled images** (label=7) as seed images, then synthesize the remaining 6 expression variants using prompt-driven AIGC generation (see [Step 6](#step-6-raf-expression-generation)).
+Our strategy: **extract all neutral-labeled images**  as seed images, then synthesize the remaining 6 expression variants using prompt-driven AIGC generation (see [Step 6](#step-6-raf-expression-generation)).
 
 ```
 final_data_raf/
