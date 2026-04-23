@@ -2,7 +2,7 @@
 
 **A Multi-Resolution Paired Facial Expression Dataset for Flux Fine-Tuning**
 
-FacePairEmoji is a carefully constructed multi-resolution, multi-expression paired face dataset designed for fine-tuning [Flux Kontext](https://github.com/black-forest-labs/flux) diffusion models. It provides same-person, different-expression image pairs across 64 resolution buckets (256px–2048px), preserving the base model's multi-resolution generation capabilities during fine-tuning.
+FacePairEmoji is a carefully constructed multi-resolution, multi-expression paired face dataset designed for fine-tuning [Flux](https://bfl.ai/) diffusion models. It provides same-person, different-expression image pairs across 64 resolution buckets (256px–2048px), preserving the base model's multi-resolution generation capabilities during fine-tuning.
 
 ---
 
