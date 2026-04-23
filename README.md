@@ -64,8 +64,8 @@ FacePairEmoji is a carefully constructed multi-resolution, multi-expression pair
     - [Step 3: Bucket Allocation](#step-3-bucket-allocation)
     - [Step 4: Super-Resolution with SeedVR2](#step-4-super-resolution-with-seedvr2)
     - [Step 5: Resize to Target Resolution](#step-5-resize-to-target-resolution)
-    - [Step 6: RAF Expression Generation via API](#step-6-raf-expression-generation-via-api)
-    - [Step 7: API Output Resize](#step-7-api-output-resize)
+    - [Step 6: RAF Expression Generation](#step-6-raf-expression-generation)
+    - [Step 7: Generated Output Resize](#step-7-generated-output-resize)
 - [Dataset Statistics](#dataset-statistics)
 - [Directory Structure](#directory-structure)
 - [Usage](#usage)
@@ -102,7 +102,7 @@ To learn this mapping, the model needs **paired training data** — multiple ima
 - **📐 64 Resolution Buckets**: Aligned to [Flux](https://github.com/black-forest-labs/flux) official aspect ratios, spanning 256px to 2048px, preventing catastrophic forgetting during fine-tuning
 - **🔬 SeedVR2 Super-Resolution**: All images enhanced by [SeedVR2-7B](https://github.com/ByteDance-Seed/SeedVR) (ICLR 2026), a state-of-the-art one-step diffusion restoration model, ensuring sharp facial details at every resolution
 - **⚖️ Balanced Distribution**: Uniform person count across all 64 buckets (max difference ≤ 1 person per bucket)
-- **🧩 Hybrid Construction**: Combines real paired data (Multi-PIE, KDEF, Oulu-CASIA) with API-synthesized pairs (RAF-DB), totaling 3,603 unique individuals
+- **🧩 Hybrid Construction**: Combines real paired data (Multi-PIE, KDEF, Oulu-CASIA) with AIGC-synthesized pairs (RAF-DB), totaling 3,603 unique individuals
 - **✅ Flux-Compatible Alignment**: All dimensions are multiples of 16, satisfying VAE (÷8), Patchify (÷16), and Sequence Packing (even latent dims) constraints with zero padding
 
 ---
@@ -118,7 +118,7 @@ We leverage four publicly available face datasets, each contributing different s
 | [**Oulu-CASIA**](https://www.ee.oulu.fi/~gyzhao/Download/Databases/Oulu-CASIA/Oulu-CASIA.html) | Paired | 80 | 7 (neutral + 6 basic) | 320×240 | Low-medium resolution, strong illumination variations |
 | [**RAF-DB**](http://www.whdeng.cn/raf/model1.html) | Unpaired | 3,204 | 1 (neutral only, extracted) | Varied (91–1,200px) | Large-scale, diverse in-the-wild faces, single-label annotations |
 
-> **Key distinction**: Multi-PIE, KDEF, and Oulu-CASIA provide **naturally paired** expressions (the same person photographed in multiple expressions). RAF-DB only provides single images with expression labels — it does **not** contain paired data. We extract neutral-expression images from RAF-DB and synthesize the remaining 6 expression variants via a generative API (see [Step 6](#step-6-raf-expression-generation-via-api)).
+> **Key distinction**: Multi-PIE, KDEF, and Oulu-CASIA provide **naturally paired** expressions (the same person photographed in multiple expressions). RAF-DB only provides single images with expression labels — it does **not** contain paired data. We extract neutral-expression images from RAF-DB and synthesize the remaining 6 expression variants via a prompt-driven AIGC generation pipeline (see [Step 6](#step-6-raf-expression-generation)).
 
 ---
 
@@ -152,11 +152,11 @@ We leverage four publicly available face datasets, each contributing different s
 │         │                                                           │
 │  ④ Lanczos resize to exact bucket dimensions                        │
 │         │                                                           │
-│  ⑤ Compute 2K-proportional resolution for API call                  │
+│  ⑤ Compute 2K-proportional generation resolution                    │
 │         │                                                           │
-│  ⑥ API generates 6 expression variants at 2K resolution             │
+│  ⑥ AIGC models generate 6 expression variants at 2K resolution      │
 │         │                                                           │
-│  ⑦ Lanczos resize API output to exact bucket dimensions             │
+│  ⑦ Lanczos resize generated output to exact bucket dimensions        │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -194,7 +194,7 @@ final_data_v1/
 
 [RAF-DB](http://www.whdeng.cn/raf/model1.html) provides single images with discrete expression labels (1=surprise, 2=fear, 3=disgust, 4=happy, 5=sad, 6=angry, 7=neutral). Since RAF-DB is an **unpaired** dataset — each image shows a different person in a single expression — it cannot directly provide expression pairs.
 
-Our strategy: **extract all neutral-labeled images** (label=7) as seed images, then synthesize the remaining 6 expression variants using a generative API (see [Step 6](#step-6-raf-expression-generation-via-api)).
+Our strategy: **extract all neutral-labeled images** (label=7) as seed images, then synthesize the remaining 6 expression variants using prompt-driven AIGC generation (see [Step 6](#step-6-raf-expression-generation)).
 
 ```
 final_data_raf/
@@ -431,29 +431,29 @@ Since SeedVR2 already outputs a high-resolution, high-quality image, this final 
 
 ---
 
-## Step 6: RAF Expression Generation via API
+## Step 6: RAF Expression Generation
 
 ### 6.1 Problem
 
 [RAF-DB](http://www.whdeng.cn/raf/model1.html) contains only **single images per person** with expression labels — there are no paired images of the same person showing different expressions. To create the required paired training data, we need to **synthesize 6 additional expression variants** for each neutral image.
 
-### 6.2 Solution: Instruction-Based Image Editing API
+### 6.2 Solution: Prompt-Driven AIGC Generation
 
-We use the **doubao-seedream** image editing API to generate expression variants from each neutral face. For each neutral image, 6 expression-specific prompts guide the model to produce:
+We generate expression variants from each neutral face using prompt-driven AIGC models. For each neutral image, 6 expression-specific prompts guide the model to produce:
 
 > happy, sad, angry, surprise, fear, disgust
 
-The API preserves the person's **identity** (face shape, skin tone, hair style, background) while modifying only the **facial expression**, leveraging instruction-based image editing capabilities.
+In practice, we use different AIGC models for different prompt styles and image conditions (e.g., Flux, doubao-seedream, nano-banana). The goal is to preserve the person's **identity** (face shape, skin tone, hair style, background) while modifying only the **facial expression**.
 
 ### 6.3 Resolution Strategy: Generate High, Then Downscale
 
-The API has specific constraints:
+The generation process has practical constraints:
 
 - **Minimum pixel count**: Requires input images above a minimum resolution threshold for quality generation
 - **Aspect ratio preservation**: Output images maintain the input's aspect ratio
 - **Optimal quality range**: Produces best results near ~2K resolution
 
-Since our target buckets span from 208×320 (tiny) to 2048×2048 (large), requesting the API to generate directly at small bucket sizes would produce low-quality results with poor facial details. We therefore adopt a **generate-high-then-downscale** strategy.
+Since our target buckets span from 208×320 (tiny) to 2048×2048 (large), generating directly at small bucket sizes can produce low-quality results with poor facial details. We therefore adopt a **generate-high-then-downscale** strategy.
 
 **Step 6.3.1: Compute the 2K-proportional resolution**
 
@@ -461,30 +461,29 @@ For a target bucket $(W_b, H_b)$, we scale its dimensions to ~2K pixel area whil
 
 $$\text{scale}_{2K} = \sqrt{\frac{2048^2}{W_b \times H_b}}$$
 
-$$W_{\text{api}} = \text{round}\!\left(\frac{W_b \times \text{scale}_{2K}}{16}\right) \times 16, \quad H_{\text{api}} = \text{round}\!\left(\frac{H_b \times \text{scale}_{2K}}{16}\right) \times 16$$
+$$W_{\text{gen}} = \text{round}\!\left(\frac{W_b \times \text{scale}_{2K}}{16}\right) \times 16, \quad H_{\text{gen}} = \text{round}\!\left(\frac{H_b \times \text{scale}_{2K}}{16}\right) \times 16$$
 
 This ensures:
-- The API always generates at **high resolution** (near 2K) for maximum quality
-- The **aspect ratio is preserved**: $\frac{W_{\text{api}}}{H_{\text{api}}} \approx \frac{W_b}{H_b}$
+- The generator runs at **high resolution** (near 2K) for maximum quality
+- The **aspect ratio is preserved**: $\frac{W_{\text{gen}}}{H_{\text{gen}}} \approx \frac{W_b}{H_b}$
 - The dimensions are aligned to **16-pixel multiples**
 
 **Worked example** — target bucket 416×624 (~512 tier):
 
 $$\text{scale}_{2K} = \sqrt{\frac{4{,}194{,}304}{416 \times 624}} = \sqrt{\frac{4{,}194{,}304}{259{,}584}} \approx 4.02$$
 
-$$W_{\text{api}} = \text{round}\!\left(\frac{416 \times 4.02}{16}\right) \times 16 = 1680$$
+$$W_{\text{gen}} = \text{round}\!\left(\frac{416 \times 4.02}{16}\right) \times 16 = 1680$$
 
-$$H_{\text{api}} = \text{round}\!\left(\frac{624 \times 4.02}{16}\right) \times 16 = 2512$$
+$$H_{\text{gen}} = \text{round}\!\left(\frac{624 \times 4.02}{16}\right) \times 16 = 2512$$
 
 **Step 6.3.2: Generate at 2K resolution**
 
 ```python
-response = client.images.generate(
-    model="doubao-seedream-5-0-260128",
-    image=base64_neutral_image,       # super-resolved neutral face
-    prompt=expression_prompt,          # e.g., "Make this person look happy"
-    size=f"{W_api}x{H_api}",         # e.g., "1680x2512"
-    response_format="b64_json",
+generated_img = generate_expression(
+    image=neutral_img,
+    prompt=expression_prompt,   # e.g., "Make this person look happy"
+    model=model_name,           # e.g., flux / doubao-seedream / nano-banana
+    size=(W_gen, H_gen),
 )
 ```
 
@@ -498,9 +497,9 @@ This two-step approach ensures that **expression details** (subtle muscle moveme
 
 ---
 
-## Step 7: API Output Resize
+## Step 7: Generated Output Resize
 
-After API generation, all expression variants are Lanczos-resized to their exact bucket dimensions. This final step guarantees:
+After expression generation, all variants are Lanczos-resized to their exact bucket dimensions. This final step guarantees:
 
 | Guarantee | Why It Matters |
 |-----------|---------------|
@@ -583,7 +582,7 @@ FacePairEmoji/
 │   │   ├── neutral/                   # Real neutral images (super-resolved)
 │   │   │   ├── raf_test_0001.jpg
 │   │   │   └── ...
-│   │   ├── happy/                     # API-generated expressions
+│   │   ├── happy/                     # AIGC-generated expressions
 │   │   ├── sad/
 │   │   ├── angry/
 │   │   ├── surprise/
