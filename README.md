@@ -222,19 +222,23 @@ During pre-training, Flux was exposed to images at many different resolutions an
 
 ### 2.2 Flux Official Resolution Buckets
 
-From the [Flux official source code](https://github.com/black-forest-labs/flux/blob/main/src/flux/util.py) (`src/flux/util.py`), the 17 preferred aspect ratios at ~1 megapixel are:
+For traceability, the base bucket definition comes from the [Flux official source code](https://github.com/black-forest-labs/flux/blob/main/src/flux/util.py) (`src/flux/util.py`).
 
-```python
-PREFERED_KONTEXT_RESOLUTIONS = [
-    (672, 1568), (688, 1504), (720, 1456), (752, 1392),
-    (800, 1328), (832, 1248), (880, 1184), (944, 1104),
-    (1024, 1024),
-    (1104, 944), (1184, 880), (1248, 832), (1328, 800),
-    (1392, 752), (1456, 720), (1504, 688), (1568, 672),
-]
+We start from Flux predefined bucket ratios, then recompute concrete bucket resolutions across the 256–2048 range (with 16-aligned dimensions). The resulting 64 buckets are:
+
+```text
+1024x1024  1328x1776  224x304  416x624  624x416   832x1248
+1040x1568  1392x1184  240x272  448x336  624x944   832x704
+1040x768   1424x1664  256x256  448x592  640x640   832x976
+1104x1488  1488x1104  272x240  464x320  656x896   880x1184
+1104x736   1536x1536  304x224  480x560  688x592   896x656
+1104x944   1568x1040  320x208  512x512  704x832   896x896
+1184x1392  1664x1424  320x464  528x784  736x1104  944x1104
+1184x880   1776x1328  336x448  544x736  736x544   944x624
+1248x1888  1888x1248  352x416  560x480  768x1040  976x832
+1248x832   2048x2048  384x384  592x448  768x768
+1280x1280  208x320    416x352  592x688  784x528
 ```
-
-These 17 ratios range from ~0.43:1 (extreme portrait) to ~2.33:1 (extreme landscape), all at approximately 1,048,576 pixels (~1024²).
 
 ### 2.3 Multi-Tier Bucket Generation
 
