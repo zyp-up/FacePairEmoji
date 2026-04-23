@@ -153,21 +153,28 @@ The curated data is organized as:
 ```text
 pair_data/
 ├── neutral/
-│   └── neutral_kdef_AM32NES.JPG
+│   ├── neutral_kdef_AM32NES.JPG
+│   └── ...
 ├── happy/
 │   ├── happy_kdef_AM32HAS.JPG
-│   └── happy_oulu_P026_Happiness_035.jpeg
+│   ├── happy_oulu_P026_Happiness_035.jpeg
+│   └── ...
 ├── sad/
 │   ├── sad_kdef_AM32SAS.JPG
-│   └── sad_oulu_P026_Sadness_022.jpeg
+│   ├── sad_oulu_P026_Sadness_022.jpeg
+│   └── ...
 ├── angry/
-│   └── angry_oulu_P026_Anger_018.jpeg
+│   ├── angry_oulu_P026_Anger_018.jpeg
+│   └── ...
 ├── surprise/
-│   └── surprise_oulu_P027_Surprise_032.jpeg
+│   ├── surprise_oulu_P027_Surprise_032.jpeg
+│   └── ...
 ├── fear/
-│   └── fear_oulu_P027_Fear_051.jpeg
+│   ├── fear_oulu_P027_Fear_051.jpeg
+│   └── ...
 └── disgust/
-    └── disgust_oulu_P027_Disgust_022.jpeg
+    ├── disgust_oulu_P027_Disgust_022.jpeg
+    └── ...
 ```
 
 </td>
@@ -201,13 +208,37 @@ pair_data/
 
 Our strategy: **extract all neutral-labeled images**  as seed images, then synthesize the remaining 6 expression variants using prompt-driven AIGC generation (see [Step 6](#step-6-raf-expression-generation)).
 
-```
-final_data_raf/
+<table>
+<tr>
+<th>Directory Structure</th>
+<th>Example Images</th>
+</tr>
+<tr>
+<td valign="top">
+
+```text
+data_raf/
 └── neutral/
-    ├── raf_test_0001.jpg
-    ├── raf_test_0002.jpg
+    ├── raf_test_2715.jpg
+    ├── raf_test_2809.jpg
+    ├── raf_train_09995.jpg
     └── ...  (3,204 images)
 ```
+
+</td>
+<td valign="top">
+
+<table>
+<tr>
+<td><img src="assets/dir_demo/raf_test_2715.jpg" width="180"></td>
+<td><img src="assets/dir_demo/raf_test_2809.jpg" width="180"></td>
+<td><img src="assets/dir_demo/raf_train_09995.jpg" width="180"></td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
 
 ---
 
