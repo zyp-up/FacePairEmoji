@@ -124,41 +124,7 @@ We leverage four publicly available face datasets, each contributing different s
 
 ## Processing Pipeline Overview
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                    Paired Datasets (v1)                             │
-│              Multi-PIE / KDEF / Oulu-CASIA                          │
-│                                                                     │
-│  ① Curate (frontal, good lighting)                                  │
-│         │                                                           │
-│  ② Design Flux-aligned multi-resolution buckets (64 buckets)        │
-│         │                                                           │
-│  ③ Allocate people to buckets (balanced)                            │
-│         │                                                           │
-│  ④ SeedVR2-7B super-resolution to target resolution                 │
-│         │                                                           │
-│  ⑤ Lanczos resize to exact bucket dimensions                        │
-└─────────────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────────────┐
-│                   Unpaired Dataset (RAF)                            │
-│                       RAF-DB                                        │
-│                                                                     │
-│  ① Extract neutral images (label=7)                                 │
-│         │                                                           │
-│  ② Allocate to 64 buckets (balanced)                                │
-│         │                                                           │
-│  ③ SeedVR2-7B super-resolution                                      │
-│         │                                                           │
-│  ④ Lanczos resize to exact bucket dimensions                        │
-│         │                                                           │
-│  ⑤ Compute 2K-proportional generation resolution                    │
-│         │                                                           │
-│  ⑥ AIGC models generate 6 expression variants at 2K resolution      │
-│         │                                                           │
-│  ⑦ Lanczos resize generated output to exact bucket dimensions        │
-└─────────────────────────────────────────────────────────────────────┘
-```
+![FacePairEmoji Data Pipeline](assets/demo/emoji_data_pipline.png)
 
 ---
 
