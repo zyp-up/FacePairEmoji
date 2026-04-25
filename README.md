@@ -68,7 +68,6 @@ FacePairEmoji is a carefully constructed multi-resolution, multi-expression pair
     - [Step 7: Generated Output Resize](#step-7-generated-output-resize)
 - [Dataset Statistics](#dataset-statistics)
 - [Directory Structure](#directory-structure)
-- [Usage](#usage)
 - [License](#license)
 - [Citation](#citation)
 - [Acknowledgments](#acknowledgments)
@@ -600,6 +599,10 @@ People are **uniformly distributed** across all 64 buckets:
 
 ## Directory Structure
 
+Dataset is available on Hugging Face:
+
+- [FacePairEmoji on Hugging Face](https://huggingface.co/datasets/yunpengZhangup/FacePairEmoji/tree/main)
+
 ```
 FacePairEmoji/
 ├── final_data_v1_bucket/              # Paired datasets (Multi-PIE, KDEF, Oulu)
@@ -629,56 +632,6 @@ FacePairEmoji/
 │   │   ├── fear/
 │   │   └── disgust/
 │   └── ...                            (64 bucket directories)
-```
-
----
-
-## Usage
-
-### Loading the Dataset
-
-```python
-from pathlib import Path
-from PIL import Image
-
-dataset_root = Path("final_data_v1_bucket")
-
-for bucket_dir in sorted(dataset_root.iterdir()):
-    if not bucket_dir.is_dir():
-        continue
-    w, h = map(int, bucket_dir.name.split('x'))
-    
-    neutral_dir = bucket_dir / "neutral"
-    for img_path in sorted(neutral_dir.glob("*.jpg")):
-        neutral = Image.open(img_path)  # size: (w, h)
-        
-        # Load corresponding expression variants
-        for expr in ["happy", "sad", "angry", "surprise", "fear", "disgust"]:
-            expr_path = bucket_dir / expr / img_path.name
-            if expr_path.exists():
-                expr_img = Image.open(expr_path)  # same (w, h)
-                # → (neutral, expr_img) is a paired training sample
-```
-
-### Aspect Ratio Bucketing for Flux Training
-
-For [Flux](https://github.com/black-forest-labs/flux) fine-tuning with [Aspect Ratio Bucketing](https://github.com/NovelAI/novelai-aspect-ratio-bucketing) (originated by [NovelAI](https://novelai.net/)):
-
-```python
-import random
-from torch.utils.data import Sampler
-
-class BucketBatchSampler(Sampler):
-    """Groups same-bucket images into batches for efficient training."""
-    def __init__(self, bucket_indices, batch_size):
-        self.buckets = bucket_indices  # {bucket_name: [sample_indices]}
-        self.batch_size = batch_size
-    
-    def __iter__(self):
-        for bucket, indices in self.buckets.items():
-            random.shuffle(indices)
-            for i in range(0, len(indices), self.batch_size):
-                yield indices[i:i + self.batch_size]
 ```
 
 ---
